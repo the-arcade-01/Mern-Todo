@@ -10,9 +10,9 @@ def list_todo_items(request):
 def insert_todo(request):
     todo = Todo(content = request.POST['intodo'])
     todo.save()
-    return redirect('/todos/list')
+    return list_todo_items(request)
 
 def delete_todo(request,todo_id):
     todo_del = Todo.objects.get(id = todo_id)
     todo_del.delete()
-    return redirect('/todos/list')
+    return list_todo_items(request)
