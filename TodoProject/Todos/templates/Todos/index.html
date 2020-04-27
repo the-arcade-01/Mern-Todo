@@ -1,0 +1,32 @@
+{%extends 'Todos/base.html'%}
+{%block title%}
+    Todo-Application
+{%endblock%}
+{%block content%}
+    <div class="container h-100 d-flex justify-content-center">
+        <h3>Create Todo</h3>
+    </div>
+    <div class="container h-100 d-flex justify-content-center">
+        <ul class='list-group'>
+            <form action="{% url 'insert_todo_item' %}" method="POST" class="form-inline">
+                {% csrf_token %}
+                <input type="text" name="intodo" class="form-control mr-sm-2">
+                <input type="submit" value="Add Todo" class="btn btn-outline-success my-2 my-sm-0">
+            </form>
+            {% for todo in todo_list %}
+                <li class='list-group-item'>{{todo.content}}
+                <form action="{% url 'delete_todo_item' todo.id %}" method="POST" class="float-right d-inline">
+                    {% csrf_token %}
+                    <button type='submit' class='btn'>
+                        <i class='far fa-trash-alt fa-lg text-danger float-right'>Delete</i>
+                    </button>
+                </form>
+                </li>
+                {% empty %}
+                <li class='list-group-item'>
+                    <span class='font-italic'>Please enter your Todos!!</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{%endblock%}
